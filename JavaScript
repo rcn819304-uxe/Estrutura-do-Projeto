@@ -1,0 +1,40 @@
+const express = require('express');
+const cors = require('cors');
+
+const app = express();
+const PORT = 3000;
+
+app.use(cors());
+app.use(express.json());
+
+// Banco de dados em memória (simulando uma lista de tarefas)
+let tasks = [
+  { id: 1, title: 'Estudar arquitetura Full Stack', completed: false },
+  { id: 2, title: 'Atualizar o perfil do GitHub', completed: true }
+];
+
+// Rota GET: Buscar todas as tarefas
+app.get('/api/tasks', (req, res) => {
+  res.json(tasks);
+});
+
+// Rota POST: Adicionar uma nova tarefa
+app.post('/api/tasks', (req, res) => {
+  const { title } = req.body;
+  if (!title) {
+    return res.status(400).json({ error: 'O título da tarefa é obrigatório.' });
+  }
+
+  const newTask = {
+    id: Date.now(),
+    title,
+    completed: false
+  };
+
+  tasks.push(newTask);
+  res.status(201).json(newTask);
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
+});
