@@ -1,0 +1,10 @@
+fullstack-task-manager/
+│
+├── backend/
+│   ├── package.json
+│   └── server.js
+│
+├── frontend/
+│   └── index.html
+│
+└── README.md
